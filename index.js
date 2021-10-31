@@ -20,12 +20,14 @@ io.on("connection", (socket) => {
   //emit message to me when i join
   socket.emit("message", "my message is hey connected");
 
-  //emit message to all except me when I join
-  socket.broadcast.emit("message", "A user has joined the chat");
 
   //emit message to all
   // io.emit();
 
+  socket.on("username", (userName)=>{
+    console.log(userName);
+      socket.broadcast.emit("joinMessage", `${userName} has joined chat.` );
+  })
   // when user disconnect
   socket.on("disconnect", function () {
     io.emit("message", "A user left the chat");
